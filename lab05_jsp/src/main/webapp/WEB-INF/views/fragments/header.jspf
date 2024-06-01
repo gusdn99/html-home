@@ -1,0 +1,51 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+
+<header class="mt-2 p-4 bg-primary text-white text-center">
+    <h1>${ pageTitle }</h1> <%-- "pageTitle" 변수의 값이 헤더 제목이 나옴. --%>
+</header>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <c:url var="homePage" value="/" /> <%-- "Home" 버튼 --%> <%-- "Home"의 URL --%>
+    <a class="navbar-brand" href="${ homePage }">Home</a> <%-- var 이름을 el 안에 적음. --%>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+            <c:url var="postListPage" value="/post/list" /> <%-- "Post List" 버튼 --%> <%-- "Post List"의 URL --%>
+          <a class="nav-link" href="${ postListPage }">Post List</a>
+        </li>
+        <li class="nav-item">
+            <c:url var="newPostPage" value="/post/create" /> <%-- "New Post" 버튼 --%> <%-- "New Post"의 URL --%>
+          <a class="nav-link" href="${ newPostPage }">New Post</a>
+        </li>
+        
+        <%-- "not empty": not null and length > 0 (문자열 타입일 때 변수가 null이 아니고 변수의 길이가 0보다 클 때) --%>
+        <%-- "empty": null or length = 0 (문자열 타입일 때 변수가 null이거나 변수의 길이가 0일 때) --%>
+        <c:if test="${ not empty signedInUser}">
+            <%-- 로그인 정보가 세션에 저장된 경우 --%>
+            <li class="nav-item">
+                <c:url var="signOutPage" value="/user/signout" />
+                <a class="nav-link" href="${ signOutPage }">
+                    <span>${ signedInUser }</span>로그아웃</a>
+            </li>        
+        </c:if>
+        <c:if test="${ empty signedInUser }">
+            <%-- 세션에 로그인 정보가 없는 경우 --%>
+            <li class="nav-item">
+                 <c:url var="signInPage" value="/user/signin" /> <%-- "singInPage" 버튼 --%> <%-- "signInPage"의 URL --%>
+                <a class="nav-link" href="${ signInPage }">로그인</a>
+            </li>
+            <li class="nav-item">
+                <c:url var="signUpPage" value="/user/signup" /> <%-- "singUpPage" 버튼 --%> <%-- "signUpPage"의 URL --%>
+                <a class="nav-link" href="${ signUpPage }">회원가입</a>
+            </li>
+        </c:if>
+      </ul>
+    </div>
+  </div>
+</nav>
