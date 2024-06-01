@@ -32,7 +32,7 @@ public class AuthenticationFilter extends HttpFilter {
 		// (2) 로그인되어 있지 X, 컨트롤러로 요청을 전달하지 않고 로그인 페이지로 이동.
 		// -> 로그인 컨트롤러(UserSignInController)에서 로그인 성공 후 최초 요청 주소로 이동.(redirect)
 		
-		HttpServletRequest req = ((HttpServletRequest) request);
+		HttpServletRequest req = ((HttpServletRequest) request); // 다형성
 
 		// pass the request along the filter chain
 		chain.doFilter(request, response);
