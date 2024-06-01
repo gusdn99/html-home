@@ -42,6 +42,7 @@
                         </div>
                     </form>
                 </div>
+                <%-- 글 작성자 아이디와 로그인 사용자 아이디가 같으면 삭제, 업데이트 버튼을 보여줌. --%>
                 <c:if test="${ post.author eq signedInUser }">
                     <div class="card-footer">
                         <button id="btnDelete" class="btn btn-outline-danger">삭제</button>
