@@ -136,10 +136,65 @@ public enum UserDao {
 			e.printStackTrace();
 		} finally {
 			closeResources(conn, stmt);
-			
+
 		}
 
 		return result;
+	}
+
+	// SQL 문자열, 메서드 추가(USERS.POINTS 컬럼 업데이트)
+	private static final String SQL_UPDATE_POINTS = "update users set points = points + ? where userid = ? ";
+
+	public int updatePoints(String userid, int points) {
+		log.debug("update(userId = {}, points = {})", userid, points);
+		log.debug(SQL_UPDATE_POINTS);
+
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		int result = 0;
+		try {
+			conn = ds.getConnection();
+			stmt = conn.prepareStatement(SQL_UPDATE_POINTS);
+			stmt.setInt(1, points);
+			stmt.setString(2, userid);
+			result = stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeResources(conn, stmt);
+			;
+		}
+
+		return result;
+	}
+
+	// users 테이블에서 userid로 검색하는 SQL:
+	private static final String SQL_SELECT_BY_USERID = "select * from users where userid = ?";
+
+	public User selectByUserid(String userid) {
+		log.debug("selectByUserid(userid = {})", userid);
+		log.debug(SQL_SELECT_BY_USERID);
+
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		User user = null;
+		try {
+			conn = ds.getConnection();
+			stmt = conn.prepareStatement(SQL_SELECT_BY_USERID);
+			stmt.setString(1, userid);
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				user = fromResultSetToUser(rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeResources(conn, stmt, rs);
+		}
+
+		return user;
 	}
 
 	private User fromResultSetToUser(ResultSet rs) throws SQLException {
