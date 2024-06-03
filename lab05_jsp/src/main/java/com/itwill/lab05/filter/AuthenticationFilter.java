@@ -73,8 +73,7 @@ public class AuthenticationFilter extends HttpFilter {
 		}
 		log.debug("target = {}", target);
 		// target = http%3A%2F%2Flocalhost%3A8080%2Flab05%2Fpost%2Fcreate(쿼리 스트링 X)
-		// target = http%3A%2F%2Flocalhost%3A8080%2Flab05%2Fpost%2Fdetails%3Fid%3D24(쿼리
-		// 스트링 O)
+		// target = http%3A%2F%2Flocalhost%3A8080%2Flab05%2Fpost%2Fdetails%3Fid%3D24(쿼리 스트링 O)
 
 		// 세션에 로그인 정보(signedInUser)가 있는지를 체크:
 		HttpSession session = req.getSession();
@@ -85,8 +84,8 @@ public class AuthenticationFilter extends HttpFilter {
 			String url = req.getContextPath() + "/user/signin?target=" + target;
 			((HttpServletResponse) response).sendRedirect(url); // 다형성
 
-			// http://localhost:8080/lab05/user/signin?target=http%3A%2F%2Flocalhost%3A8080%2Flab05%2Fpost%2Fcreate(쿼리 스트링 X)
-			// http://localhost:8080/lab05/user/signin?target=http%3A%2F%2Flocalhost%3A8080%2Flab05%2Fpost%2Fdetails%3Fid%3D24(쿼리 스트링 O)
+			// => http://localhost:8080/lab05/user/signin?target=http%3A%2F%2Flocalhost%3A8080%2Flab05%2Fpost%2Fcreate(쿼리 스트링 X)
+			// => http://localhost:8080/lab05/user/signin?target=http%3A%2F%2Flocalhost%3A8080%2Flab05%2Fpost%2Fdetails%3Fid%3D24(쿼리 스트링 O)
 
 		} else { // 로그인 상태 O
 			log.debug("로그인 상태: {}", signedInUser); // 로그인 상태: meme
