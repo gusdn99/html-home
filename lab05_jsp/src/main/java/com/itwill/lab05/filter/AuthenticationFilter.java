@@ -45,9 +45,9 @@ public class AuthenticationFilter extends HttpFilter {
 
 		String reqUrl = req.getRequestURL().toString();
 		log.debug("request URL = {}", reqUrl);
-		// request URL = http://localhost:8080/lab05/post/create => 프로토콜부터 시작. 쿼리 스트링
-		// 보여주지 X
+		// request URL = http://localhost:8080/lab05/post/create
 		// request URL = http://localhost:8080/lab05/post/details
+		// => 프로토콜부터 시작. 쿼리 스트링 보여주지 X
 
 		String contextPath = req.getContextPath();
 		log.debug("context path(root) = {}", contextPath);
@@ -56,8 +56,9 @@ public class AuthenticationFilter extends HttpFilter {
 
 		String reqUri = req.getRequestURI();
 		log.debug("request URI = {}", reqUri);
-		// request URI = /lab05/post/create => 컨텍스트 루트부터 시작. 쿼리 스트링 보여주지 X
+		// request URI = /lab05/post/create
 		// request URI = /lab05/post/details
+		// => 컨텍스트 루트부터 시작. 쿼리 스트링 보여주지 X
 
 		String qs = req.getQueryString();
 		log.debug("query string = {}", qs);
