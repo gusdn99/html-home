@@ -14,7 +14,7 @@
 </head>
 <body>
     <div class="container-fluid">
-        <c:set var="pageTitle" value="User Profile" /> <%-- scope의 기본값은 page --%> <%-- "pageTitle"의 값을 "Post Details"으로 설정(헤더에 "Post Details" 제목이 나오게 하기 위해서) --%>
+        <c:set var="pageTitle" value="User Profile" />
         <%@ include file="../fragments/header.jspf" %>
         
         <main>
