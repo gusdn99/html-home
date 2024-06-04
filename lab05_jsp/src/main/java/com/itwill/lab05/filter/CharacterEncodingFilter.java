@@ -32,26 +32,14 @@ public class CharacterEncodingFilter extends HttpFilter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
-		// HttpServletRequest로 캐스팅 가능 여부 확인
-		if (request instanceof HttpServletRequest) {
-
-			HttpServletRequest httpRequest = (HttpServletRequest) request;
-
-			// X-Forwarded-For 헤더 확인
-			String clientIp = httpRequest.getRemoteAddr();
-			String xForwardedForHeader = httpRequest.getHeader("X-Forwarded-For");
-			if (xForwardedForHeader != null && !xForwardedForHeader.isEmpty()) {
-				// X-Forwarded-For 헤더가 존재할 경우, 가장 첫 번째 IP를 사용
-				clientIp = xForwardedForHeader.split(",")[0].trim();
-			}
+		   String remoteAddr = request.getRemoteAddr();
+		   
 			// IPv6 루프백 주소 변환
-			if ("0:0:0:0:0:0:0:1".equals(clientIp)) {
-				clientIp = "127.0.0.1";
+			if ("0:0:0:0:0:0:0:1".equals(remoteAddr)) {
+				remoteAddr = "127.0.0.1";
 			}
 
-			log.info("Client IP: " + clientIp);
-		}
+			log.debug("whose ip?: " + remoteAddr);
 		
 		// 요청(request) 객체의 문자열 인코딩 타입을 (UTF-8로) 설정:
 		request.setCharacterEncoding(encoding);
