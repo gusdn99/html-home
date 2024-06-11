@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.spring2.repository.PostDao"> <!-- PostDao 인터페이스 이름과 같아야 함. -->
+
+    <!-- id는 인터페이스의 메서드 이름 -->
+    <!-- posts 테이블 전체 검색. 목록 보기. -->
+    <select id="selectOrderByIdDesc" resultType="Post"> <!-- resultType에 별명("Post")을 적음. (Post 클래스를 참조함.) -->
+        select * from posts order by id desc
+    </select>
+    
+    <!-- posts 테이블에서 id(PK)로 검색. 상세보기. -->
+    <select id="selectById" resultType="Post">
+        select * from posts where id = #{id} <!-- "?" 대신 "#{]"을 적음.  -->
+    </select>
+    
+    <!-- posts 테이블에 행 삽입. 새 글 작성. -->
+    <insert id="insertPost" >
+        insert into posts (title, content, author)
+        values (#{title}, #{content}, #{author})
+    </insert>
+    
+    <!-- posts 테이블에서 해당 id의 제목과 내용, 수정시간 업데이트. -->
+    <update id="updatePost">
+        update posts
+        set title = #{title}, content = #{content}, modified_time = systimestamp
+        where id = #{id} 
+    </update>
+    
+    <!-- posts 테이블에서 해당 id의 행을 삭제. -->
+    <delete id="deletePost">
+        delete from posts where id = #{id}
+    </delete>
+
+</mapper>
+
