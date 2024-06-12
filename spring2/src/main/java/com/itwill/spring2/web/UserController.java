@@ -57,7 +57,7 @@ public class UserController {
 		model.addAttribute("user", user);
 	}
 	
-//	@Override
+//	@Override signout
 //	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //		log.debug("doGet()");
 //		
