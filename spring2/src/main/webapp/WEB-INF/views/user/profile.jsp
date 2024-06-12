@@ -13,45 +13,36 @@
         crossorigin="anonymous" />
 </head>
 <body>
-     <div class="contatiner-fluid">
-        <c:set var="pageTitle" value="Post Create" />
+    <div class="container-fluid">
+        <c:set var="pageTitle" value="User Profile" />
         <%@ include file="../fragments/header.jspf" %>
         
-         <main>
+        <main>
             <div class="mt-2 card">
                 <div class="card-header">
-                    <h2>새 글 작성</h2>
+                    <h2>내 정보</h2>
                 </div>
                 <div class="card-body">
-                    <c:url var="postCreatePage" value="/post/create" />
-                    <!-- form에서 action 속성 값을 설정하지 않으면 현재 요청 주소("/create")로 다시 요청을 보냄. -->
-                    <form method="post" action="${ postCreatePage }">
+                    <form>
                         <div class="mt-2">
-                            <input class="form-control"
-                                type="text" name="title" placeholder="제목 입력" required autofocus />
+                            <label for="userid" class="form-label">User ID</label>
+                            <input id="userid" class="form-control" type="text" value="${ user.userid }" readonly />
                         </div>
                         <div class="mt-2">
-                            <textarea class="form-control"
-                                rows="5" name="content" placeholder="내용 입력" required ></textarea>
+                            <label for="password" class="form-label">비밀번호</label>
+                            <input id="password" class="form-control" type="text" value="${ user.password }" readonly />
                         </div>
                         <div class="mt-2">
-                            <input class="form-control"
-                                type="text" name="author" placeholder="작성자" required />
+                            <label for="email" class="form-label">이메일</label>
+                           <input id="email" class="form-control" type="email" value="${ user.email }" readonly />
                         </div>
-                        
-                        <%--  
-                        <div class="mt-2 d-none">
-                            <input class="form-control"
-                                type="text" name="author" value="${ signedInUser }" readonly />
-                        </div>
-                        --%>
-                        
                         <div class="mt-2">
-                            <input class="form-control btn btn-outline-success"
-                                type="submit" value="저장" />
+                            <label for="points" class="form-label">포인트</label>
+                            <input id="points" class="form-control" type="text" value="${ user.points }" readonly />
                         </div>
                     </form>
                 </div>
+                <div class="card-footer"></div>
             </div>
         </main>
     </div>
@@ -61,4 +52,3 @@
         crossorigin="anonymous"></script>
 </body>
 </html>
-

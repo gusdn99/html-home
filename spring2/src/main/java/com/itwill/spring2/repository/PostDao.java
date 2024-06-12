@@ -2,6 +2,8 @@ package com.itwill.spring2.repository;
 
 import java.util.List;
 
+import com.itwill.spring2.dto.PostSearchDto;
+
 public interface PostDao {
 	
 	// post-mapper.xml에서 id="selectOrderByIdDesc"인 SQL을 실행하는 메서드.
@@ -10,6 +12,7 @@ public interface PostDao {
 	int insertPost(Post post); // title, content, author 파라미터들을 Post 객체에 저장.
 	int updatePost(Post post);
 	int deletePost(Integer id);
+	List<Post> search(PostSearchDto dto);
 
 }
 

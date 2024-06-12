@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.itwill.spring2.dto.UserSigninDto;
+import com.itwill.spring2.dto.UserSignupDto;
 import com.itwill.spring2.repository.User;
 import com.itwill.spring2.repository.UserDao;
 
@@ -25,20 +27,19 @@ public class UserService {
 
 	}
 	
-	public int signUp(User user) {
-		log.debug("signUp()");
-		int result = userDao.insertUser(user);
-		return result;
+	public int signup(UserSignupDto dto) {
+		log.debug("signup({})", dto);
 		
+		int result = userDao.insertUser(dto.toEntity());
+		log.debug("signUp 결과 = {}", result);
+		
+		return result;
 	}
 	
-	public User signIn(String userid, String password) {
-		log.debug("signIn()");
+	public User signin(UserSigninDto dto) {
+		log.debug("signin({})", dto);
 
-		User dto = User.builder().userid(userid).password(password).build();
-		User user = userDao.selectByUseridAndPassword(dto);
-
-		return user;
+		return userDao.selectByUseridAndPassword(dto.toEntity());
 		
 	}
 	

@@ -45,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const result = confirm('변경된 내용을 저장할까요?');
         if (result) {
-            // 삭제(GET 방식) 요청을 서버로 보냄.
             modifyForm.method = 'post'; // 폼 제출 방식 설정.(post 방식)
             modifyForm.action = 'update'; // 폼 제출 요청 주소 설정.
             modifyForm.submit(); // 폼 제출(서버로 요청을 보냄).
@@ -54,6 +53,3 @@ document.addEventListener('DOMContentLoaded', () => {
    });
    
 });
-
-
-

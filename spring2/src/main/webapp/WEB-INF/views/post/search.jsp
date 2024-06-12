@@ -22,7 +22,7 @@
                 <div class="card-header">
                     <c:url var="postSearchPage" value="/post/search" />
                     <form method="get" action="${ postSearchPage }">
-                        <div class="row"> <%-- bootstrap은 12개의 컬럼을 가지고 있음 --%>
+                        <div class="row">
                             <div class="col-3">
                                 <select class="form-control" name="category">
                                     <option value="t">제목</option>
@@ -76,3 +76,4 @@
         crossorigin="anonymous"></script>
 </body>
 </html>
+

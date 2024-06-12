@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.itwill.spring2.dto.PostCreateDto;
 import com.itwill.spring2.dto.PostListDto;
+import com.itwill.spring2.dto.PostSearchDto;
+import com.itwill.spring2.dto.PostUpdateDto;
 import com.itwill.spring2.repository.Post;
 import com.itwill.spring2.service.PostService;
 
@@ -22,44 +25,90 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/post") // GET 방식과, POST 방식 둘다 처리하기 위해
 // -> PostController 클래스의 모든 컨트롤러 메서드의 매핑 주소는 "/post"로 시작.
 public class PostController {
-	
+
 	private final PostService postService; // 생성자에 의한 의존성 주입
-	
+
 	@GetMapping("/list") // @RequestMapping 없으면 "/post/list"로 적음.
 	public void list(Model model) {
 		log.debug("list()");
-		
+
 		// 서비스 컴포넌트의 메서드를 호출, 포스트 목록을 읽어옴 -> 뷰에 전달.
 		List<PostListDto> list = postService.read();
-		model.addAttribute("posts",list);
-		
+		model.addAttribute("posts", list);
+
 		// 뷰: /WEB-INF/views/post/list.jsp
 	}
-	
-	@GetMapping("/details")
+
+	@GetMapping({ "/details", "/modify" })
+	// -> GET 방식의 "/post/details", "/post/modify" 2개의 요청을 처리하는 메서드.(배열 사용)
 	public void datails(@RequestParam(name = "id", defaultValue = "0") int id, Model model) {
-		log.debug("details()");
+		log.debug("details(id = {})", id);
 		
+        // 서비스 컴포넌트의 메서드를 호출해서 해당 id의 포스트를 검색(select).
 		Post post = postService.readById(id);
+		
+        // 뷰에 데이터를 전달하기 위해서 model 객체에 post를 속성으로 추가.
 		model.addAttribute("post", post);
-				
+		
+		// 리턴 타입이 void이므로 뷰의 이름은
+		// (1) 요청 주소가 /post/details인 경우 /WEB-INF/views/post/details.jsp
+		// (2) 요청 주소가 /post/modify인 경우 /WEB-INF/views/post/modify.jsp
 	}
 	
 	@GetMapping("/create")
-	public void createByGet() {
-		log.debug("createByGet()");
-	}
-	
-	@PostMapping("/create")
-	public String createByPost(
-			@RequestParam(name = "title") String title,
-			@RequestParam(name = "content") String content,
-			@RequestParam(name = "author") String author) {
-		log.debug("createByPost()");
-		Post post = Post.builder().title(title).content(content).author(author).build();
-		
-		postService.create(post);
-		return "redirect:/post/list";
+	public void create() {
+		log.debug("GET: create()");
 	}
 
+	@PostMapping("/create")
+	public String create(PostCreateDto dto) {
+		log.debug("POST: create(dto = {})", dto);
+
+		// 서비스 컴포넌트의 메서드를 호출해 데이터베이스에 새 글을 저장.
+		postService.create(dto);
+		return "redirect:/post/list"; // 포스트 목록 페이지로 리다이렉트
+	}	
+	
+	@GetMapping("/delete")
+	public String delete(@RequestParam(name = "id", defaultValue = "0") int id) {
+		log.debug("delete(id = {})", id);
+		
+		// 서비스 컴포넌트의 메서드를 호출해서 데이터베이스의 테이블에서 해당 아이디의 글을 삭제.
+		postService.delete(id);
+		
+		// 포스트 목록 페이지로 리다이렉트.
+		return "redirect:/post/list";
+	}
+	
+	@PostMapping("/update")
+	public String update(PostUpdateDto dto) {
+		log.debug("POST: update(dto = {})", dto);
+		
+		// 서비스 컴포넌트의 메서드를 호출해서 데이터베이스 테이블 업데이트를 수행.
+		postService.update(dto);
+		
+		// 상세보기 페이지로 리다이렉트.
+		return "redirect:/post/details?id=" + dto.getId();
+		
+	}
+	
+//	@GetMapping("/search")
+//	public void search(PostSearchDto dto, Model model) {
+//		log.debug("search(dto = {})", dto);
+//		
+//		List<Post> list = postService.search(dto);
+//		model.addAttribute("posts", list);
+//		
+//	}
+	
+	@GetMapping("/search")
+	public void search(PostSearchDto dto, Model model) {
+		log.debug("search(dto = {})", dto);
+		
+		List<PostListDto> list = postService.search(dto);
+		model.addAttribute("posts", list);
+		
+	}
+	
 }
+

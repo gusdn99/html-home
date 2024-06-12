@@ -19,7 +19,7 @@ public class PostListDto {
 	private String author;
 	private LocalDateTime modifiedTime;
 	
-	public static PostListDto fromEntity(Post post) {
+	public static PostListDto fromEntity(Post post) { // static (주어진 "Post" 객체를 기반으로 새로운 "PostListDto" 객체를  생성.
 		return PostListDto.builder()
 				.id(post.getId())
 				.title(post.getTitle())
@@ -30,3 +30,4 @@ public class PostListDto {
 	}
 	
 }
+
