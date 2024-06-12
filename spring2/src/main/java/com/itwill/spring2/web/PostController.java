@@ -92,15 +92,6 @@ public class PostController {
 		
 	}
 	
-//	@GetMapping("/search")
-//	public void search(PostSearchDto dto, Model model) {
-//		log.debug("search(dto = {})", dto);
-//		
-//		List<Post> list = postService.search(dto);
-//		model.addAttribute("posts", list);
-//		
-//	}
-	
 	@GetMapping("/search")
 	public void search(PostSearchDto dto, Model model) {
 		log.debug("search(dto = {})", dto);

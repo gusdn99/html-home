@@ -81,11 +81,6 @@ public class PostService {
 		return result;
 	}
 	
-//	public List<Post> search(PostSearchDto dto){
-//		log.debug("search(dto = {})", dto);
-//		return postDao.search(dto);
-//	}
-	
     public List<PostListDto> search(PostSearchDto dto) {
     	log.debug("search(dto = {})", dto);
     	
