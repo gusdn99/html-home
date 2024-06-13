@@ -12,6 +12,7 @@
     <!-- 매퍼 XML 파일에서 resultType 속성을 설정할 때 간단히 하기 위해서. 별명 사용. -->
     <typeAliases>
         <typeAlias type="com.itwill.spring2.repository.Post" alias="Post" /> <!-- Post 클래스 이름과 같아야 함. -->
+        <typeAlias type="com.itwill.spring2.repository.Comment" alias="Comment" />
         <typeAlias type="com.itwill.spring2.repository.User" alias="User" />
     </typeAliases>
     

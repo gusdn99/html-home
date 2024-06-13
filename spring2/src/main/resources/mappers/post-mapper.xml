@@ -11,14 +11,14 @@
     </select>
     
     <!-- posts 테이블에서 id(PK)로 검색. 상세보기. -->
-    <select id="selectById" resultType="Post">
-        select * from posts where id = #{id} <!-- "?" 대신 "#{]"을 적음.  -->
+    <select id="selectById" resultType="Post"> 
+        select * from posts where id = #{id} <!-- "?" 대신 "#{]"을 적음. #{id}는 selectById메서드의 아규먼트 -->
     </select>
     
     <!-- posts 테이블에 행 삽입. 새 글 작성. -->
     <insert id="insertPost" >
         insert into posts (title, content, author)
-        values (#{title}, #{content}, #{author})
+        values (#{title}, #{content}, #{author}) <!-- setString(post.getTitle()), setString(post.getContent()), setString(post.getContent())-->
     </insert>
     
     <!-- posts 테이블에서 해당 id의 제목과 내용, 수정시간 업데이트. -->
@@ -36,11 +36,11 @@
     <!-- posts 테이블에서 제목/내용/작성자로 검색. -->
     <select id="search" resultType="Post">
         <!-- 동적 쿼리 -->
-        <bind name="searchKeyword" value="'%' + keyword + '%'" /> <!-- name은 변수이름 -->
+        <bind name="searchKeyword" value="'%' + keyword + '%'" /> <!-- name은 변수이름 --> <!-- dto.getKeyword() - PostSearchDto의 필드-->
         select * from posts
         <where>
             <choose>
-                <when test='category.equals("t")'>
+                <when test='category.equals("t")'> <!-- dto.getCategory() - PostSearchDto의 필드-->
                     upper(title) like upper(#{searchKeyword})
                 </when>
                 <when test='category.equals("c")'>
@@ -59,4 +59,3 @@
     </select>
     
 </mapper>
-
