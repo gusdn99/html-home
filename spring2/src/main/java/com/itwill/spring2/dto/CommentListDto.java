@@ -20,7 +20,7 @@ public class CommentListDto {
 	private String ctext;
 	private LocalDateTime modifiedTime;
 	
-	public static CommentListDto fromEntity(Comment comment) { // static (주어진 "Post" 객체를 기반으로 새로운 "PostListDto" 객체를  생성.
+	public static CommentListDto fromEntity(Comment comment) {
 		return CommentListDto.builder()
 				.id(comment.getId())
 				.postId(comment.getPostId())

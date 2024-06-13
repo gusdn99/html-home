@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.itwill.spring2.dto.CommentCreateDto;
+import com.itwill.spring2.dto.CommentListDto;
 import com.itwill.spring2.dto.CommentUpdateDto;
+
 import com.itwill.spring2.repository.Comment;
 import com.itwill.spring2.repository.CommentDao;
 
@@ -20,12 +22,13 @@ public class CommentService {
 
 	private final CommentDao commentDao;
 	
-	public List<Comment> read(Integer postId) {
-		log.debug("read({})", postId);
+	public List<CommentListDto> read(Integer postId) {
+		log.debug("read(postId = {})", postId);
 		List<Comment> list = commentDao.selectByPostId(postId);
 		
-		return list;
-		
+		return list.stream()
+              .map(CommentListDto::fromEntity) // map((x) -> CommentListDto.fromEntity(x))
+              .toList();
 	}
 	
 	public int create(CommentCreateDto dto) {
@@ -66,27 +69,20 @@ public class CommentService {
 		
 	}
 	
-	public Comment readById(Integer id) {
-		log.debug("readById(id = {})", id);
-		return commentDao.selectById(id);
-		
-	}
+    public CommentListDto readById(Integer id) {
+        log.debug("readById(id={})", id);
+        
+        Comment comment = commentDao.selectById(id);
+        log.debug(comment.toString());
+        
+        return CommentListDto.fromEntity(comment);
+    }
 	
-//	public Post readById(Integer id) {
+//	public Comment readById(Integer id) {
 //		log.debug("readById(id = {})", id);
-//		return postDao.selectById(id);
+//		return commentDao.selectById(id);
+//		
 //	}
-//
-//	
-//    public List<PostListDto> search(PostSearchDto dto) {
-//    	log.debug("search({})", dto);
-//    	
-//        List<Post> list = postDao.search(dto);
-//        return list.stream()
-//                .map(PostListDto::fromEntity)
-//                .toList();
-//    }
-	
 
 }
 
