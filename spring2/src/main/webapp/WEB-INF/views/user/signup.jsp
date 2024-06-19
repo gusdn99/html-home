@@ -33,6 +33,16 @@
                         <input type="password" class="form-control"
                             id="password" name="password" placeholder="비밀번호" required />
                     </div>
+                    
+                    
+                    <div class="my-2">
+                        <input type="password" class="form-control"
+                            id="confirmPassword" name="confirmPassword" placeholder="비밀번호 확인" required />
+                    </div>
+                    
+                    <!-- password 일치 여부 결과를 표시할 영역 -->
+                    <div id="checkPasswordMatchResult"></div>
+
 
                     <div class="my-2">
                         <input type="email" class="form-control"

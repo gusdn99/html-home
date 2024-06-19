@@ -7,11 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let passwordChecked = false; // 비밀번호 필드 작성 여부 체크.
     let emailChecked = false; // 이메일 필드 작성 여부 체크.
     
+    let passwordMatchChecked = false; // 비밀번호와 비밀번호 확인 필드가 일치하는지 체크
+    
     const inputUserid = document.querySelector('input#userid');
     inputUserid.addEventListener('change', checkUserid);
     
     const inputPassword = document.querySelector('input#password');
     inputPassword.addEventListener('change', checkPassword);
+    
+    
+    const inputConfirmPassword = document.querySelector('input#confirmPassword');
+    inputConfirmPassword.addEventListener('change', checkPasswordMatch);
+    
     
     const inputEmail = document.querySelector('input#email');
     inputEmail.addEventListener('change', checkEmail);
@@ -22,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function changeButtonState() {
         const btnSignUp = document.querySelector('button#btnSignUp');
     
-        if (useridChecked && passwordChecked && emailChecked) {
+        if (useridChecked && passwordChecked && passwordMatchChecked && emailChecked) {
             // 버튼의 class 속성 값들 중 'disabled'를 제거. -> 버튼 활성화
             btnSignUp.classList.remove('disabled');
         } else {
@@ -72,6 +79,28 @@ document.addEventListener('DOMContentLoaded', () => {
         
         changeButtonState(); // 버튼의 활성화/비활성화 상태를 변경
     }
+    
+    // 비밀번호와 비밀번호 확인 입력 필드의 일치 여부 체크 함수
+    function checkPasswordMatch(event) {
+        const password = document.querySelector('input#password').value;
+        const confirmPassword = event.target.value;
+        const checkPasswordMatchResult = document.querySelector('div#checkPasswordMatchResult');
+        
+        if (password === confirmPassword && password !== '') {
+            passwordMatchChecked = true;
+            checkPasswordMatchResult.innerHTML = '비밀번호가 일치합니다.';
+            checkPasswordMatchResult.classList.add('text-success');
+            checkPasswordMatchResult.classList.remove('text-danger');
+        } else {
+            passwordMatchChecked = false;
+            checkPasswordMatchResult.innerHTML = '비밀번호가 일치하지 않습니다.';
+            checkPasswordMatchResult.classList.add('text-danger');
+            checkPasswordMatchResult.classList.remove('text-success');
+        }
+        
+        changeButtonState(); // 버튼의 활성화/비활성화 상태를 변경
+    }
+    
     
     // 이메일 입력 필드의 change 이벤트 리스너
     function checkEmail(event) {
