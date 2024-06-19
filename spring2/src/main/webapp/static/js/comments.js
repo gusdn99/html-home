@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnToggleComment = document.querySelector('button#btnToggleComment');
     
     // collapseComments div 요소를 부트스트랩의 Collapse 객체로 생성.
-    const bsCollapse = new bootstrap.Collapse('div#collapseComments', {toggle: false});
+    const bsCollapse = new bootstrap.Collapse('div#collapseComments', {toggle: false}); // false는 접혀 있는 상태. {toggle: false}는 객체
     
     // 댓글 토글 버튼에 클릭 이벤트 리스너를 등록.
     btnToggleComment.addEventListener('click', () => {
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnRegisterComment = document.querySelector('button#btnRegisterComment');
     
     // 버튼에 클릭 이벤트 리스너를 설정.
-    btnRegisterComment.addEventListener('click', registerComment);
+    btnRegisterComment.addEventListener('click', registerComment); // 클릭 이벤트 처리를 하는 registerComment 함수를 만듦.
     
     // 부트스트랩 모달(다이얼로그) 객체 생성.
     const commentModal = new bootstrap.Modal('div#commentModal', {backdrop: true});
@@ -60,24 +60,24 @@ document.addEventListener('DOMContentLoaded', () => {
             ctext: ctext,
             username: username
         }; */
-        const data = {postId, ctext, username};
-        console.log(data);
+        const data = {postId, ctext, username}; // 위에꺼랑 같은 의미. CommentCreateDto의 필드 이름과 동일하게 만듦.
+        console.log(data); // {postId: '46', ctext: 'ajax 요청 테스트', username: 'test'}
         
         // POST 방식의 Ajax 요청을 보냄. 응답 성공/실패 콜백을 등록.
         axios
         .post('../api/comment', data)
-        .then((response) => {
-            // console.log(response);
-            console.log(response.data); // RestController에서 보낸 응답 데이터
-            if (response.data === 1) {
+        .then((response) => { // 성공했을 때의 함수
+            // console.log(response); // {data: 1, status: 200, statusText: '', headers: r, config: {…}, …} // 서버에서 보낸 데이터는 data
+            console.log(response.data); // RestController에서 보낸 응답 데이터(int result)
+            if (response.data === 1) { // result가 int 타입이라서
                 alert('댓글 1개 등록 성공');
                 document.querySelector('textarea#ctext').value = '';
                 document.querySelector('input#username').value = '';
                 // 댓글 목록 갱신
                 getAllComments();
             }
-        })
-        .catch((error) => {
+        }) // 컨트롤러에서 응답받은 내용을 브라우저가 콘솔창에 띄움. (컨트롤러의 리턴값을 받은 이후에 실행됨.)
+        .catch((error) => { // 실패 콜백
             console.log(error);
         });
     }
@@ -137,10 +137,13 @@ document.addEventListener('DOMContentLoaded', () => {
             htmlStr += '</div>'; // <div class="card card-body my-1">의 종료 태그!!
         }
         
+        // 모든 html 코드에는 정의된 태그 속성(img src, a href)이 있고,
+        // 개발자가 필요로 하는 값들을 사용하기 위한 정의되지 않은 태그 속성(button data-id)이 있음.
+        
         // 작성된 HTML 코드를 div 영역에 삽입.
         divComments.innerHTML = htmlStr;
         
-        // 모든 삭제 버튼들을 찾아서 클릭 이벤트 리스너를 설정.
+        // 모든 삭제 버튼들을 찾아서 클릭 이벤트 리스너를 설정. (html 코드가 div 영역에 삽입된 이후에 이벤트 발생)
         const btnDeletes = document.querySelectorAll('button.btnDeleteComment');
         for (let btn of btnDeletes) {
             btn.addEventListener('click', deleteComment);
@@ -204,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // 모달을 보여줌.
             commentModal.show();
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.log(error)); // 실행문이 하나일 때 중괄호 생략 가능함.
     }
     
     // 댓글 업데이트 모달의 [저장] 버튼의 클릭 이벤트 리스너
@@ -224,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Ajax 요청
         axios
-        .put(uri, { ctext }) // { ctext } = {ctext: ctext}, {id, ctext} = {id: id, ctext: ctext}
+        .put(uri, { ctext }) // { ctext } = {ctext: ctext}, {id, ctext} = {id: id, ctext: ctext} id는 CommentRestController에서 dto.setId(id);가 있어서 안 적음.
         .then((response) => {
             console.log(response);
             

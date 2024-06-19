@@ -135,7 +135,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
         crossorigin="anonymous"></script>
     
-    <!-- Axio JS 라이브러리 -->
+    <!-- Axio JS 라이브러리 (JS파일보다 위에 있어야 함.) -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     
     <script>
