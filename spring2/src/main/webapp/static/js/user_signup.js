@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const confirmPassword = event.target.value;
         const checkPasswordMatchResult = document.querySelector('div#checkPasswordMatchResult');
         
-        if (password === confirmPassword && password !== '') {
+        if (password === confirmPassword && confirmPassword !== '') {
             passwordMatchChecked = true;
             checkPasswordMatchResult.innerHTML = '비밀번호가 일치합니다.';
             checkPasswordMatchResult.classList.add('text-success');
