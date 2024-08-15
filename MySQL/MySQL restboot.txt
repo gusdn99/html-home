@@ -1,9 +1,0 @@
-MySQL 설치할 때, password는 0000으로 했습니다.
-
-Hostname:
-	rest-database.cjkyeas0kabd.ap-northeast-2.rds.amazonaws.com
-
-Password:
-	restboot
-
-
