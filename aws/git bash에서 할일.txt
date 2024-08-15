@@ -1,0 +1,30 @@
+※ git bash 명령어에서 주의사항
+	* Ctrl + C로 복사 안 됨.
+		=> Ctrl + Insert 아니면 마우스 우클릭으로 Copy 클릭해서 복사해야 함.
+	* Ctrl + V로 붙여넣기 안 됨.
+		=> Shift + Insert 아니면 마우스 우클릭으로 Paste 클릭해서 붙여넣어야 함.
+
+
+# 사용자 SSH 키 생성	
+ssh-keygen -t rsa -b 2048 -f "/c/study/EC2/hyunwoo_id_rsa" -N ""
+	=> hyunwoo는 본인의 영어 이름으로 고쳐야 함.
+
+
+# 공개키 내용 복사 및 관리자에게 공개키 전달
+cat /c/study/EC2/hyunwoo_id_rsa.pub
+	=> hyunwoo는 본인의 영어 이름으로 고쳐야 함.
+	=> 여기서 나오는 공개키 파일 내용을 복사해서 관리자에게(현우) 보냄. 
+		(c드라이브의 study 폴더 안의 EC2 폴더 안에 생성된 hyunwoo_id_rsa.pub 파일을 메모장으로 열어서 복사해서 보내도 됨.) 
+
+
+# SSH 클라이언트에서 비밀번호 인증으로 EC2 인스턴스에 접속
+ssh hyunwoo@ec2-43-203-90-215.ap-northeast-2.compute.amazonaws.com
+	=> hyunwoo는 본인의 영어 이름으로 고쳐야 함.
+	=> 비밀번호 인증이 완료되면 접속 성공함. (비밀번호는 rest1234)
+
+
+# JAR 파일 실행
+java -jar /home/hyunwoo/rest-0.0.1-SNAPSHOT.jar
+	=> hyunwoo는 본인의 영어 이름으로 고쳐야 함.
+
+
